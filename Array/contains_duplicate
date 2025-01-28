@@ -1,0 +1,14 @@
+// https://neetcode.io/problems/duplicate-integer
+
+class Solution {
+    public boolean hasDuplicate(int[] nums) {
+        Set<Integer> integers = new HashSet<>();
+
+        for(int i = 0; i < nums.length; i++){
+            if(integers.contains(nums[i]))
+                return true;
+            integers.add(nums[i]);
+        }
+        return false;
+    }
+}
