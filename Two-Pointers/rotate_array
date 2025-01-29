@@ -1,0 +1,20 @@
+// https://leetcode.com/problems/rotate-array/
+
+class Solution {
+    public void rotate(int[] nums, int k) {
+        if(k > 0 && nums.length / k != 0){
+            int last = nums.length - 1;
+            for(int i = 0; i < k; i++){
+                swap(nums, 1, last);
+            }
+        }
+    }
+
+    public void swap(int[] nums, int l, int r){
+        for(int i = r; i >= l; i--){
+            int temp = nums[i];
+            nums[i] = nums[i-1];
+            nums[i-1] = temp;
+        }   
+    }
+}
