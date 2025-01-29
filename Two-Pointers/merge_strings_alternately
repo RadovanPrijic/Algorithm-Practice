@@ -1,0 +1,16 @@
+// https://leetcode.com/problems/merge-strings-alternately/
+
+class Solution {
+    public String mergeAlternately(String word1, String word2) {
+        StringBuilder res = new StringBuilder();
+        int n = word1.length(), m = word2.length();
+        int firstPointer = 0, secondPointer = 0;
+
+        while (firstPointer < n || secondPointer < m) {
+            if (firstPointer < n) res.append(word1.charAt(firstPointer++));
+            if (secondPointer < m) res.append(word2.charAt(secondPointer++));
+        }
+        
+        return res.toString();
+    }
+}
