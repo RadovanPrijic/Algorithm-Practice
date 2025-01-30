@@ -1,0 +1,22 @@
+// https://neetcode.io/problems/longest-repeating-substring-with-replacement
+
+public class Solution {
+    public int characterReplacement(String s, int k) {
+        HashMap<Character, Integer> charCount = new HashMap<>();
+        int l = 0, result = 0, maxFrequency = 0;
+
+        for (int r = 0; r < s.length(); r++) {
+            charCount.put(s.charAt(r), charCount.getOrDefault(s.charAt(r), 0) + 1);
+            maxFrequency = Math.max(maxFrequency, charCount.get(s.charAt(r)));
+
+            while ((r - l + 1) - maxFrequency > k) {
+                charCount.put(s.charAt(l), charCount.get(s.charAt(l)) - 1);
+                l++;
+            }
+            
+            result = Math.max(result, r - l + 1);
+        }
+
+        return result;
+    }
+}
