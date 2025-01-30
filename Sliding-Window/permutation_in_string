@@ -1,0 +1,46 @@
+// https://neetcode.io/problems/permutation-string
+
+class Solution {
+    public boolean checkInclusion(String s1, String s2) {
+        int[] charCountS1 = new int[26];
+        int[] charCountS2 = new int[26];
+        int l = 0, matchCount = 0;
+
+        for(int i = 0; i < s1.length(); i++){
+            charCountS1[s1.charAt(i) - 'a']++;
+            charCountS2[s2.charAt(i) - 'a']++;
+        }
+
+        for (int i = 0; i < 26; i++) {
+            if (charCountS1[i] == charCountS2[i]) {
+                matchCount++;
+            }
+        }
+
+        for (int r = s1.length(); r < s2.length(); r++) {
+            if (matchCount == 26) {
+                return true;
+            }
+
+            int index = s2.charAt(r) - 'a';
+            charCountS2[index]++;
+            if (charCountS1[index] == charCountS2[index]) {
+                matchCount++;
+            } else if (charCountS1[index] + 1 == charCountS2[index]) {
+                matchCount--;
+            }
+
+            index = s2.charAt(l) - 'a';
+            charCountS2[index]--;
+            if (charCountS1[index] == charCountS2[index]) {
+                matchCount++;
+            } else if (charCountS1[index] - 1 == charCountS2[index]) {
+                matchCount--;
+            }
+
+            l++;
+        }
+
+        return matchCount == 26;
+    }
+}
