@@ -1,0 +1,23 @@
+// https://neetcode.io/problems/longest-substring-without-duplicates
+
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+       Set<Character> charSet = new HashSet<>();
+       int l = 0, count = 0, result = 0;
+
+       for(int r = 0; r < s.length(); r++){
+            if(charSet.contains(s.charAt(r))){
+                while(charSet.contains(s.charAt(r))){
+                    charSet.remove(s.charAt(l));
+                    l++;
+                    count--;
+                }
+            }
+            charSet.add(s.charAt(r));
+            count++;
+            result = Math.max(result, count);
+       }
+
+       return result;
+    }
+}
