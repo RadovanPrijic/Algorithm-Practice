@@ -1,0 +1,36 @@
+// https://neetcode.io/problems/eating-bananas
+
+class Solution {
+    public int minEatingSpeed(int[] piles, int h) {
+        int r = Arrays.stream(piles).max().getAsInt();
+        int low = 1, high = r, k = r;
+
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+
+            if(canEatWithinTimeframe(piles, h, mid)){
+                k = mid;
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+        }
+
+        return k;
+    }
+
+    public boolean canEatWithinTimeframe(int[] piles, int h, int k){
+        int i = 0;
+
+        while(i < piles.length) {
+            h -= Math.ceil((double) piles[i] / k);
+
+            if(h <= 0)
+                return false;
+
+            i++;
+        }
+
+        return true;
+    }
+}
