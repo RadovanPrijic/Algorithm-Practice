@@ -1,0 +1,23 @@
+// https://neetcode.io/problems/find-minimum-in-rotated-sorted-array
+
+class Solution {
+    public int findMin(int[] nums) {
+        int low = 0, high = nums.length - 1, minElement = nums[0];
+
+        while(low <= high) {
+            if (nums[low] < nums[high]) {
+                minElement = Math.min(minElement, nums[low]);
+                break;
+            }
+
+            int mid = low + (high - low) / 2;
+            minElement = Math.min(minElement, nums[mid]);
+            if(nums[mid] >= nums[low])
+                low = mid + 1; 
+            else
+                high = mid - 1;
+        }
+
+        return minElement;
+    }
+}
