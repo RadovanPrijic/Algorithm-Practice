@@ -1,0 +1,30 @@
+// https://leetcode.com/problems/baseball-game/
+
+class Solution {
+    public int calPoints(String[] operations) {
+        Stack<Integer> stack = new Stack<>();
+
+        for (String operation : operations) {
+            if (operation.equals("+")) {
+                int integerOne = stack.pop();
+                int integerTwo = stack.peek();
+                stack.push(integerOne);
+                stack.push(integerOne + integerTwo);
+            } else if (operation.equals("D")) {
+                int integer = stack.peek();
+                stack.push(integer * 2);
+            } else if (operation.equals("C")) {
+                stack.pop();
+            } else {
+                stack.push(Integer.parseInt(operation));
+            }
+        }
+
+        int result = 0;
+        for (int integer : stack) {
+            result += integer;
+        }
+
+        return result;
+    }
+}
