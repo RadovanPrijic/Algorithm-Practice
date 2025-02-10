@@ -1,0 +1,21 @@
+// https://neetcode.io/problems/valid-parenthesis-string
+
+class Solution {
+    public boolean checkValidString(String s) {
+        int leftParenthesisNr = 0, rightParenthesisNr = 0, starNr = 0;
+
+        for(int i = 0; i < s.length(); i++) {
+            if(s.charAt(i) == '(')
+                leftParenthesisNr++;
+            else if(s.charAt(i) == ')')
+                rightParenthesisNr++;
+            else
+                starNr++;
+
+            if(rightParenthesisNr > leftParenthesisNr + starNr)
+                return false;
+        }
+
+        return starNr > Math.abs(leftParenthesisNr - rightParenthesisNr) ? true : false;
+    }
+}
