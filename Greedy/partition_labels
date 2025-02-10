@@ -1,0 +1,25 @@
+// https://neetcode.io/problems/partition-labels
+
+class Solution {
+    public List<Integer> partitionLabels(String s) {
+        Map<Character, Integer> charLastOccurrence = new HashMap<>();
+        List<Integer> resultArray = new ArrayList<>();
+        int size = 0, end = 0;
+
+        for (int i = 0; i < s.length(); i++) {
+            charLastOccurrence.put(s.charAt(i), i);
+        }
+
+        for (int i = 0; i < s.length(); i++) {
+            size++;
+            end = Math.max(end, charLastOccurrence.get(s.charAt(i)));
+
+            if (i == end) {
+                resultArray.add(size);
+                size = 0;
+            }
+        }
+
+        return resultArray;
+    }
+}
