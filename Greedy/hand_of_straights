@@ -1,0 +1,31 @@
+// https://neetcode.io/problems/hand-of-straights
+
+class Solution {
+    public boolean isNStraightHand(int[] hand, int groupSize) {
+        if(hand.length % groupSize != 0)
+            return false;
+    
+        Arrays.sort(hand);
+
+        int last, r, currGroupSize = 1;
+        for(int i = 0; i < hand.length; i++) {
+            if(hand[i] != -1) {
+                last = hand[i];
+                r = i + 1;
+                while(r < hand.length && currGroupSize < groupSize) {
+                    if(hand[r] == last + 1) {
+                        currGroupSize++;
+                        last = hand[r];
+                        hand[r] = -1;  
+                    }
+                    r++;
+                }
+                if(currGroupSize != groupSize) return false;
+                else currGroupSize = 1;
+            } else continue;
+        }
+
+        return true;
+
+    }
+}
