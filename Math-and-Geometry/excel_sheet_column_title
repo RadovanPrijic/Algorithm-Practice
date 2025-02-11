@@ -1,0 +1,15 @@
+// https://leetcode.com/problems/excel-sheet-column-title/
+
+class Solution {
+    public String convertToTitle(int columnNumber) {
+        StringBuilder columnTitle = new StringBuilder("");
+
+        while(columnNumber > 0) {
+            columnNumber--;
+            columnTitle.append((char)('A' + (columnNumber % 26)));
+            columnNumber /= 26;
+        }
+
+        return columnTitle.reverse().toString();
+    }
+}
