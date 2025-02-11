@@ -1,0 +1,37 @@
+// https://leetcode.com/problems/insert-greatest-common-divisors-in-linked-list/
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+
+class Solution {
+    public ListNode insertGreatestCommonDivisors(ListNode head) {
+        if(head.next == null) 
+            return head;
+
+        ListNode dummy = new ListNode(0, head);
+        ListNode first = dummy.next;
+        ListNode second = dummy.next.next;
+
+        while(first != null && second != null) {
+            int gcd = determineGCD(first.val, second.val);
+            ListNode gcdNode = new ListNode(gcd, second);
+            first.next = gcdNode;
+            first = gcdNode.next;
+            second = second.next;
+        }
+
+        return dummy.next;
+    }
+
+    private int determineGCD(int a, int b) {
+        return b == 0 ? a : determineGCD(b, a % b);
+    }
+}
