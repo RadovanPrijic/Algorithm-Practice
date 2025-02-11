@@ -16,9 +16,8 @@ class Solution {
         if(head.next == null) 
             return head;
 
-        ListNode dummy = new ListNode(0, head);
-        ListNode first = dummy.next;
-        ListNode second = dummy.next.next;
+        ListNode first = head;
+        ListNode second = head.next;
 
         while(first != null && second != null) {
             int gcd = determineGCD(first.val, second.val);
@@ -28,7 +27,7 @@ class Solution {
             second = second.next;
         }
 
-        return dummy.next;
+        return head;
     }
 
     private int determineGCD(int a, int b) {
