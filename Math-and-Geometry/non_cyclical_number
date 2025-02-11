@@ -1,0 +1,26 @@
+// https://neetcode.io/problems/non-cyclical-number
+
+class Solution {
+    public boolean isHappy(int n) {
+        Set<Integer> numSet = new HashSet<>();
+        int currNumber = n, numToSquare = 0, currSum = 0;
+
+        while(true) {
+            while(currNumber > 0) {
+                numToSquare = currNumber % 10;
+                currSum += numToSquare * numToSquare;
+                currNumber /= 10;
+            }
+
+            if(currSum == 1) break;
+            else {
+                if(numSet.contains(currSum)) return false;
+                numSet.add(currSum);
+                currNumber = currSum;
+                currSum = 0;
+            }
+        }
+
+        return true;
+    }
+}
