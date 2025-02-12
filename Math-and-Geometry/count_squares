@@ -1,0 +1,34 @@
+// https://neetcode.io/problems/count-squares
+
+public class CountSquares {
+    private Map<List<Integer>, Integer> pointsCount;
+    private List<List<Integer>> points;
+
+    public CountSquares() {
+        pointsCount = new HashMap<>();
+        points = new ArrayList<>();
+    }
+
+    public void add(int[] point) {
+        List<Integer> pt = Arrays.asList(point[0], point[1]);
+        pointsCount.put(pt, pointsCount.getOrDefault(pt, 0) + 1);
+        points.add(pt);
+    }
+
+    public int count(int[] point) {
+        int result = 0, px = point[0], py = point[1];
+
+        for (List<Integer> pt : points) {
+            int x = pt.get(0), y = pt.get(1);
+
+            if (Math.abs(py - y) != Math.abs(px - x) || x == px || y == py) {
+                continue;
+            }
+
+            result += pointsCount.getOrDefault(Arrays.asList(x, py), 0) * 
+                   pointsCount.getOrDefault(Arrays.asList(px, y), 0);
+        }
+
+        return result;
+    }
+}
