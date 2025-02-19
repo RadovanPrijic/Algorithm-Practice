@@ -1,0 +1,15 @@
+// https://neetcode.io/problems/kth-largest-element-in-an-array
+
+class Solution {
+    public int findKthLargest(int[] nums, int k) {
+        PriorityQueue<Integer> minHeap = new PriorityQueue<>();
+
+        for(int num : nums) {
+            minHeap.offer(num);
+            if(minHeap.size() > k)
+                minHeap.poll();
+        }
+        
+        return minHeap.peek();
+    }
+}
