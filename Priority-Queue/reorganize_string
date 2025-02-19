@@ -1,0 +1,42 @@
+// https://leetcode.com/problems/reorganize-string/description/
+
+class Solution {
+    public String reorganizeString(String s) {
+        StringBuilder reorganizedString = new StringBuilder("");
+        int[] charCount = new int[26];
+        PriorityQueue<int[]> maxHeap = new PriorityQueue<>((x, y) -> y[0] - x[0]);
+
+        for(char c : s.toCharArray()) {
+            charCount[c - 'a']++;
+        }
+
+        for (int i = 0; i < charCount.length; i++) {
+            if (charCount[i] > 0) maxHeap.add(new int[]{charCount[i], i});
+        }
+
+        while(!maxHeap.isEmpty()) {
+            int[] first = maxHeap.poll();
+
+            if(reorganizedString.length() > 0 && 
+                reorganizedString.charAt(reorganizedString.length() - 1) == (char)(first[1] + 'a')) {
+                if(maxHeap.isEmpty()) return "";
+
+                int[] second = maxHeap.poll();
+                reorganizedString.append((char)(second[1] + 'a'));
+                second[0]--;
+
+                if (second[0] > 0) maxHeap.offer(second);
+
+                maxHeap.offer(first);
+            } else {
+                reorganizedString.append((char)(first[1] + 'a'));
+                first[0]--;
+
+                if(first[0] > 0) maxHeap.offer(first);
+            }
+            
+        }
+
+        return reorganizedString.toString();
+    }
+}
