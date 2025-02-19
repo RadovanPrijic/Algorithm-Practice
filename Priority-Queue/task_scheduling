@@ -1,0 +1,37 @@
+// https://neetcode.io/problems/task-scheduling
+
+public class Solution {
+    public int leastInterval(char[] tasks, int n) {
+        int[] charCount = new int[26];
+        PriorityQueue<Integer> maxHeap = new PriorityQueue<>(Collections.reverseOrder());
+        Queue<int[]> q = new LinkedList<>();
+        int time = 0;
+
+        for (char task : tasks) {
+            charCount[task - 'A']++;
+        }
+
+        for (int cnt : charCount) {
+            if (cnt > 0) {
+                maxHeap.add(cnt);
+            }
+        }
+
+        while (!maxHeap.isEmpty() || !q.isEmpty()) {
+            time++;
+            
+            if (!maxHeap.isEmpty()) {
+                int cnt = maxHeap.poll() - 1;
+                if (cnt > 0) q.add(new int[]{cnt, time + n});
+            } else {
+                time = q.peek()[1];
+            }
+
+            if (!q.isEmpty() && q.peek()[1] == time) {
+                maxHeap.add(q.poll()[0]);
+            }
+        }
+        
+        return time;
+    }
+}
