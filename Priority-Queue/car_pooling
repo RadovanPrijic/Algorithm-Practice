@@ -1,0 +1,25 @@
+// https://leetcode.com/problems/car-pooling/description/
+
+public class Solution {
+    public boolean carPooling(int[][] trips, int capacity) {
+        PriorityQueue<int[]> minHeap = new PriorityQueue<>(Comparator.comparingInt(a -> a[0]));
+        int currPassengers = 0;
+
+        Arrays.sort(trips, Comparator.comparingInt(a -> a[1]));
+        
+        for (int[] trip : trips) {   
+            while (!minHeap.isEmpty() && minHeap.peek()[0] <= trip[1]) {
+                currPassengers -= minHeap.poll()[1];
+            }
+            
+            currPassengers += trip[0];
+            if (currPassengers > capacity) {
+                return false;
+            }
+            
+            minHeap.offer(new int[]{trip[2], trip[0]});
+        }
+        
+        return true;
+    }
+}
